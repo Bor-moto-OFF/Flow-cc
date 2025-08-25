@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flow‑CC — Investor Deck (EN, v2)</title>
+<style>
+
+
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .presentation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 103, 132, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        /* Title Slide */
+        .title-slide {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .logo {
+            font-size: 120px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            text-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+        }
+        
+        .tagline {
+            font-size: 24px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.4;
+        }
+        
+        .confidential {
+            font-size: 14px;
+            opacity: 0.6;
+            margin-top: 60px;
+        }
+        
+        /* Content Slides */
+        .slide-title {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        
+        .slide-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 50px;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .card-content {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch; /* Ensures items stretch to the same height */
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .process-step {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+            display: flex; /* Added for flex layout */
+            flex-direction: column; /* Added for vertical alignment */
+        }
+        
+        .process-step .card-content {
+             flex-grow: 1; /* Added to make content fill available space */
+        }
+        
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #667eea;
+        }
+        
+        .process-step:last-child::after {
+            display: none;
+        }
+        
+        .process-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        
+        .process-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        
+        .table-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .data-table th {
+            background: rgba(102, 126, 234, 0.2);
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 80px;
+            }
+            
+            .slide-title {
+                font-size: 36px;
+            }
+            
+            .tagline {
+                font-size: 20px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+             .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+            }
+            
+            .process-step::after {
+                content: '↓';
+                right: 50%;
+                bottom: -25px;
+                top: auto;
+                transform: translateX(50%);
+            }
+        }
+        
+        @media print {
+            .slide {
+                page-break-after: always;
+                min-height: auto;
+                padding: 40px 0;
+            }
+            
+            body {
+                background: white;
+                color: black;
+            }
+            
+            .slide::before {
+                display: none;
+            }
+        }
+    
+
+
+</style>
+</head>
+<body>
+  <div class="presentation-container">
+    
+<div class="slide title-slide">
+  <div class="slide-content">
+    <div class="logo">Flow‑CC</div>
+    <div class="tagline">One capture module. Three regeneration options.<br>Simple, low‑power direct air capture that scales.</div>
+    <div class="confidential">Confidential | August 2025</div>
+  </div>
+  <div class="slide-number">1</div>
+</div>
+
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">The problem — and why removal matters</h1>
+<p class="slide-subtitle">Cutting emissions is not enough. We must also <b>remove CO₂ already in the air</b>.</p>
+<div class="content-grid">
+  <div class="card">
+    <h3 class="card-title">Climate math</h3>
+    <p class="card-content">To keep warming in check, the world needs both deep cuts and large‑scale CO₂ removal. It fills the gap where cuts are hard (aviation, agriculture, heavy industry) and cleans up past emissions.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Why DAC helps</h3>
+    <p class="card-content">Direct air capture works anywhere, near storage or fuel plants. It is measurable and auditable. It creates durable climate impact that buyers can trust.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Why cost &lt; $100/t matters</h3>
+    <p class="card-content">Sub‑$100 unlocks mass buyers and public programs, allows city/enterprise budgets to scale, and makes millions of tons affordable every year.</p>
+  </div>
+</div>
+<div class="content-grid" style="margin-top:16px">
+  <div class="card">
+    <h3 class="card-title">What slows DAC today</h3>
+    <p class="card-content">High heat needs, big fans ($300–800/t), complex plants, long builds, land and energy friction.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Flow‑CC answer</h3>
+    <p class="card-content">Low‑power capture, solar heat for regeneration, and modular blocks. Built to scale fast with simple parts.</p>
+  </div>
+</div>
+
+      </div>
+      <div class="slide-number">2</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">Our universal platform</h1>
+<p class="slide-subtitle">One <b>capture module</b> and one <b>simple chemistry</b> (sodium carbonate/bicarbonate). Different <b>regeneration blocks</b> plug in by site.</p>
+<div class="content-grid">
+  <div class="card">
+    <h3 class="card-title">Capture module</h3>
+    <p class="card-content">A 10×10×2 m falling film. Natural wind (~5 m/s) flows across it (~500 m³/s). CO₂ in air reacts with sodium carbonate.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">24/7 buffer</h3>
+    <p class="card-content">At night the liquid stores CO₂ as bicarbonate. By day it is regenerated. Buffer size ~80–100 m³ per module.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Three regeneration options</h3>
+    <p class="card-content">A) Solar heating • B) Slag mineralization • C) Electro‑regeneration + e‑fuel. We can also mix them.</p>
+  </div>
+</div>
+
+      </div>
+      <div class="slide-number">3</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">The market is growing fast</h1>
+<p class="slide-subtitle">Buyers want <b>high‑quality, durable</b> CO₂ removal with clear measurement.</p>
+<div class="content-grid">
+  <div class="card">
+    <h3 class="card-title">Global need</h3>
+    <p class="card-content"><b>2030:</b> ~0.5–1.5 Gt CO₂/yr removal needed (on top of deep cuts). <b>2050:</b> ~5–10 Gt/yr. These are mainstream ranges from major assessments.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Market size</h3>
+    <p class="card-content">At $100–200 per ton that implies ~<b>$50–300B/yr by 2030</b> and ~<b>$0.5–2.0T/yr by 2050</b>. Policy will likely speed this up.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Today’s buyers</h3>
+    <p class="card-content">Tech, aviation, shipping, cities, and supply‑chain leaders already buy durable credits for net‑zero goals.</p>
+  </div>
+</div>
+<p class="slide-subtitle">We can update the exact numbers and sources (IPCC/IEA/State of CDR) for final investor copies.</p>
+
+      </div>
+      <div class="slide-number">4</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">Three regeneration options — same module</h1>
+<div class="content-grid">
+  <div class="card">
+    <h3 class="card-title">A) Solar (South)</h3>
+    <p class="card-content">Three‑layer “solar packets” warm the liquid. CO₂ comes out and is collected. Very low power. Very simple.</p>
+    <ul class="card-list">
+      <li>Best in sunny regions</li>
+      <li>Capture cost: €90–120/t (5‑yr payback); path to €60–90/t</li>
+      <li>Revenue: removal credits (storage); e‑fuel later</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3 class="card-title">B) Slag (Circular)</h3>
+    <p class="card-content">We contact the liquid with steel/cement slag. Calcium and magnesium form solid carbonates. The liquid is regenerated.</p>
+    <ul class="card-list">
+      <li>At or near plants and ports</li>
+      <li>Revenue: sell carbonates + removal credits</li>
+      <li>Often net‑positive after product sales</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3 class="card-title">C) Electro + e‑fuel (North)</h3>
+    <p class="card-content">Electro‑regeneration and green hydrogen. CO₂ + H₂ → e‑fuel. Waste heat helps regeneration.</p>
+    <ul class="card-list">
+      <li>Best where power is cheap or negative at times</li>
+      <li>Value: energy security and storage of surplus wind/solar</li>
+      <li>Uses existing fuel infrastructure</li>
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="slide-number">5</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">Sizing and scalability</h1>
+<div class="content-grid">
+  <div class="card">
+    <h3 class="card-title">Per module</h3>
+    <p class="card-content">~2,000 tCO₂ per year. ~1,100–1,300 m² of solar field in sunny sites. Power ~0.10 MWh/t (pumps + compression).</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Scale without limit</h3>
+    <p class="card-content">Add more capture modules. The only real limit is siting in <b>windy regions</b> for good airflow. We grow 10 → 20 → 50+ modules per site.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Mix & match</h3>
+    <p class="card-content">Use solar by day; add a small electro block for nights; add a slag unit for product revenue. Common buffer, compression, monitoring.</p>
+  </div>
+</div>
+
+      </div>
+      <div class="slide-number">6</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">What partners get from Flow</h1>
+<div class="content-grid">
+  <div class="card">
+    <h3 class="card-title">Plug‑and‑play kit</h3>
+    <p class="card-content">Factory‑made cassettes, films, pumps, and controls. Simple civil works. Local crews can build it.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Monitoring and credits</h3>
+    <p class="card-content">We provide the monitoring software and reporting. We pool and sell the credits. Clear, auditable accounting.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Deal support</h3>
+    <p class="card-content">Standard contracts, safety rules, and training. Price‑floor fund to protect operators.</p>
+  </div>
+</div>
+
+      </div>
+      <div class="slide-number">7</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">Unit economics (per module, ~2,000 t/yr)</h1>
+<div class="table-container">
+  <table class="data-table">
+    <thead><tr><th>Path</th><th>CAPEX</th><th>OPEX</th><th>Capture cost</th><th>How we earn</th></tr></thead>
+    <tbody>
+      <tr><td>Solar</td><td>€0.8–1.0M</td><td>€10–12/t; low power</td><td>€90–120/t (5‑yr), path €60–90/t</td><td>Removal credits now; e‑fuel later</td></tr>
+      <tr><td>Slag</td><td>€0.7–0.9M incl. small plant</td><td>€8–15/t</td><td>Often net‑positive after product sales</td><td>Sell carbonates + credits</td></tr>
+      <tr><td>Electro + e‑fuel</td><td>€1.0–1.4M</td><td>0.8–1.3 MWh/t (power)</td><td>€100–160/t (power‑dependent)</td><td>e‑fuel revenue; waste heat helps</td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="slide-subtitle">Same capture module and chemistry. Only the regeneration block changes.</p>
+
+      </div>
+      <div class="slide-number">8</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">Example: 50‑module park (100,000 t/yr)</h1>
+<p class="slide-subtitle">Simple view of annual operating profit (before finance & tax)</p>
+<div class="table-container">
+  <table class="data-table">
+    <thead><tr><th>Sale price</th><th>Margin (assume $85/t cost)</th><th>Annual operating profit</th></tr></thead>
+    <tbody>
+      <tr><td>$100/t</td><td>$15/t</td><td>$1.5M/yr</td></tr>
+<tr><td>$120/t</td><td>$35/t</td><td>$3.5M/yr</td></tr>
+<tr><td>$150/t</td><td>$65/t</td><td>$6.5M/yr</td></tr>
+<tr><td>$200/t</td><td>$115/t</td><td>$11.5M/yr</td></tr>
+    </tbody>
+  </table>
+</div>
+<p class="slide-subtitle">At $100/t we already earn about $1.5M/yr. At $120/t it is ~$3.5M/yr. At $200/t it is ~$11.5M/yr.</p>
+
+      </div>
+      <div class="slide-number">9</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">Our goal and share</h1>
+<div class="content-grid">
+  <div class="card">
+    <h3 class="card-title">Near term</h3>
+    <p class="card-content">Build pilot and first farm. Prove cost below $100/t. Sign multi‑year offtakes.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Scale</h3>
+    <p class="card-content">Remove <b>millions of tons per year</b> with farms in windy regions across Europe, MENA, and beyond.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">By 2050</h3>
+    <p class="card-content">Target <b>10–15% share</b> of the potential durable removal market.</p>
+  </div>
+</div>
+
+      </div>
+      <div class="slide-number">10</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">Roadmap and what we ask</h1>
+<div class="content-grid">
+  <div class="card">
+    <h3 class="card-title">Phase 1 — Pilot (2,000 t/yr)</h3>
+    <p class="card-content">One site with solar block + small electro block for nights + optional slag unit.</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">Phase 2 — 20,000 t/yr</h3>
+    <p class="card-content">10–12 modules. Choose regen mix by local value (credits, products, e‑fuel).</p>
+  </div>
+  <div class="card">
+    <h3 class="card-title">We are looking for</h3>
+    <p class="card-content">Site partners (wind/solar), slag supply deals, removal offtakes, project finance.</p>
+  </div>
+</div>
+<div class="cta-section"><h2 class="cta-title">Flow‑CC: one module, three options. Built to scale.</h2></div>
+
+      </div>
+      <div class="slide-number">11</div>
+    </div>
+    
+    <div class="slide">
+      <div class="slide-content">
+        
+<h1 class="slide-title">Team & contact</h1>
+<p class="slide-subtitle">Let’s build the pilot and the first farm</p>
+<div class="contact-info">
+  <p><strong>Alexander Bormotov</strong> · 2bormotov@gmail.com · linkedin.com/in/aleksandr-bormotov-756550242</p>
+</div>
+
+      </div>
+      <div class="slide-number">12</div>
+    </div>
+    
+  </div>
+  <script>
+    document.addEventListener('keydown', function(e) {
+      const slides = document.querySelectorAll('.slide');
+      const idx = Array.from(slides).findIndex(s => s.getBoundingClientRect().top >= 0 && s.getBoundingClientRect().top < window.innerHeight);
+      if (['ArrowDown','PageDown'].includes(e.key) && idx < slides.length-1) slides[idx+1].scrollIntoView({behavior:'smooth'});
+      if (['ArrowUp','PageUp'].includes(e.key) && idx > 0) slides[idx-1].scrollIntoView({behavior:'smooth'});
+    });
+  </script>
+</body>
+</html>
